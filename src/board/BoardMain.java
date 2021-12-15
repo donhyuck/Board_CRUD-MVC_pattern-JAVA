@@ -47,7 +47,7 @@ public class BoardMain {
 
 				articles.add(article);
 
-				System.out.println("게시물 등록이 완료되었습니다.");
+				System.out.printf("%d번 게시물 등록이 완료되었습니다./n", id);
 			}
 
 			else if (command.startsWith("article detail")) {
@@ -74,6 +74,62 @@ public class BoardMain {
 				System.out.printf("제목 : %s\n", targetArticle.title);
 				System.out.printf("내용 : %s\n", targetArticle.body);
 
+			}
+
+			else if (command.startsWith("article delete")) {
+
+				String[] commandBits = command.split(" ");
+				int id = Integer.parseInt(commandBits[2]);
+
+				Article targetArticle = null;
+
+				for (int i = 0; i < articles.size(); i++) {
+					Article currentArticle = articles.get(i);
+
+					if (currentArticle.id == id) {
+						targetArticle = currentArticle;
+					}
+				}
+
+				if (targetArticle == null) {
+					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
+					continue;
+				}
+
+				articles.remove(targetArticle);
+				System.out.printf("%d번 게시물이 삭제되었습니다.\n", id);
+
+			}
+
+			else if (command.startsWith("article modify")) {
+
+				String[] commandBits = command.split(" ");
+				int id = Integer.parseInt(commandBits[2]);
+
+				Article targetArticle = null;
+
+				for (int i = 0; i < articles.size(); i++) {
+					Article currentArticle = articles.get(i);
+
+					if (currentArticle.id == id) {
+						targetArticle = currentArticle;
+					}
+				}
+
+				if (targetArticle == null) {
+					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
+					continue;
+				}
+
+				System.out.print("제목 : ");
+				String title = sc.nextLine();
+				System.out.print("내용 : ");
+				String body = sc.nextLine();
+
+				targetArticle.title = title;
+				targetArticle.body = body;
+
+				System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
 			}
 
 			else if (command.equals("system exit")) {
