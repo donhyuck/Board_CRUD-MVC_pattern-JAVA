@@ -7,13 +7,24 @@ import java.util.Scanner;
 import board.util.Util;
 
 public class BoardMain {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	// makeTestDate 메서드를 통해 테스트를 만들기 위함
+	// main 메서드 외부로 보내서 해결
 
-		List<Article> articles = new ArrayList<>();
-		int lastId = 1;
+	private static List<Article> articles;
+
+	static {
+		articles = new ArrayList<>();
+	}
+
+	public static void main(String[] args) {
 
 		System.out.println("== 프로그램 시작 ==");
+
+		makeTestDate();
+
+		Scanner sc = new Scanner(System.in);
+
+		int lastId = 1;
 
 		while (true) {
 			System.out.print("명령어 : ");
@@ -152,5 +163,13 @@ public class BoardMain {
 
 		System.out.println("== 프로그램 종료 ==");
 
+	}
+
+	private static void makeTestDate() {
+		System.out.println("테스트를 위한 데이터를 생성합니다.");
+
+		articles.add(new Article(1, Util.getCurrentDate(), "제목1", "내용1", 11));
+		articles.add(new Article(2, Util.getCurrentDate(), "제목2", "내용2", 22));
+		articles.add(new Article(3, Util.getCurrentDate(), "제목3", "내용3", 33));
 	}
 }
