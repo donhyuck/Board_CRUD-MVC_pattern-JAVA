@@ -27,12 +27,12 @@ public class BoardMain {
 
 			if (command.equals("article list")) {
 				System.out.println("== 게시물 목록 ==");
-				System.out.println("  번호  |     작성일     |  제목  ");
+				System.out.println(" 번호 |     날짜    |  제목  |  조회수");
 
-				for (int i = 0; i < articles.size(); i++) {
+				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article currentArticle = articles.get(i);
-					System.out.printf("   %s   | %s |  %s \n", currentArticle.id, currentArticle.regDate,
-							currentArticle.title);
+					System.out.printf("%3d  | %4s | %4s  | %4d\n", currentArticle.id, currentArticle.regDate,
+							currentArticle.title, currentArticle.hit);
 				}
 			}
 
@@ -75,10 +75,13 @@ public class BoardMain {
 					continue;
 				}
 
-				System.out.printf("번호 : %d\n", targetArticle.id);
+				targetArticle.increaseHit();
+
+				System.out.printf("번 호 : %d\n", targetArticle.id);
 				System.out.printf("작성일 : %s\n", targetArticle.regDate);
-				System.out.printf("제목 : %s\n", targetArticle.title);
-				System.out.printf("내용 : %s\n", targetArticle.body);
+				System.out.printf("제 목 : %s\n", targetArticle.title);
+				System.out.printf("내 용 : %s\n", targetArticle.body);
+				System.out.printf("조회수 : %d\n", targetArticle.hit);
 
 			}
 
