@@ -35,12 +35,40 @@ public class App {
 				continue;
 			}
 
-			if (command.equals("article list")) {
+			if (command.equals("system exit")) {
+				System.out.println("== 프로그램 종료 ==");
+				break;
+
+			} else if (command.startsWith("article list")) {
+
+				if (articles.size() == 0) {
+					System.out.println("게시물이 없습니다.");
+					continue;
+				}
+
+				String searchKeyword = command.substring("article list".length()).trim();
+				List<Article> forListArticles = articles;
+
+				if (searchKeyword.length() > 0) {
+					forListArticles = new ArrayList<>();
+
+					for (Article article : articles) {
+						if (article.title.contains(searchKeyword)) {
+							forListArticles.add(article);
+						}
+					}
+
+					if (forListArticles.size() == 0) {
+						System.out.println("검색결과가 존재하지 않습니다.");
+						continue;
+					}
+				}
+
 				System.out.println("== 게시물 목록 ==");
 				System.out.println(" 번호 |     날짜    |  제목  |  조회수");
 
-				for (int i = articles.size() - 1; i >= 0; i--) {
-					Article currentArticle = articles.get(i);
+				for (int i = forListArticles.size() - 1; i >= 0; i--) {
+					Article currentArticle = forListArticles.get(i);
 					System.out.printf("%3d  | %4s | %4s  | %4d\n", currentArticle.id, currentArticle.regDate,
 							currentArticle.title, currentArticle.hit);
 				}
@@ -62,6 +90,7 @@ public class App {
 				articles.add(article);
 
 				System.out.printf("%d번 게시물 등록이 완료되었습니다.\n", id);
+
 			} else if (command.startsWith("article detail")) {
 
 				String[] commandBits = command.split(" ");
@@ -120,16 +149,10 @@ public class App {
 
 				System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
 
-			} else if (command.equals("system exit")) {
-				break;
-
 			} else {
 				System.out.printf("%s는 존재하지 않는 명령어 입니다.\n", command);
 			}
 		}
-
-		System.out.println("== 프로그램 종료 ==");
-
 	}
 
 	private int getArticleIndexById(int id) {
