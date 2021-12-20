@@ -1,11 +1,12 @@
-package board;
+package board.dto;
 
 public class Article {
-	int id; // 게시물 번호
-	String regDate; // 게시물 작성일
-	String title; // 제목
-	String body; // 내용
-	int hit; // 게시물 조회수
+
+	public int id; // 게시물 번호
+	public String regDate; // 게시물 작성일
+	public String title; // 제목
+	public String body; // 내용
+	public int hit; // 게시물 조회수
 
 	public Article(int id, String regDate, String title, String body) {
 		this(id, regDate, title, body, 0);
