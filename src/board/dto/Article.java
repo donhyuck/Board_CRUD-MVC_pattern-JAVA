@@ -1,9 +1,7 @@
 package board.dto;
 
-public class Article {
+public class Article extends Dto {
 
-	public int id; // 게시물 번호
-	public String regDate; // 게시물 작성일
 	public String title; // 제목
 	public String body; // 내용
 	public int hit; // 게시물 조회수

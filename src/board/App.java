@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import board.dto.Article;
+import board.dto.Member;
 import board.util.Util;
 
 public class App {
 
 	private static List<Article> articles;
+	private static List<Member> members;
 
 	App() {
 		articles = new ArrayList<>();
+		members = new ArrayList<>();
 	}
 
 	public void start() {
@@ -148,6 +151,41 @@ public class App {
 				targetArticle.body = body;
 
 				System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
+
+			} else if (command.equals("member join")) {
+
+				int id = members.size() + 1;
+				String regDate = Util.getCurrentDate();
+
+				System.out.print("로그인 아이디 : ");
+				String loginId = sc.nextLine();
+
+				String loginPw = null;
+				String loginPwConfirm = null;
+
+				while (true) {
+					System.out.print("로그인 비밀번호 : ");
+					loginPw = sc.nextLine();
+
+					System.out.print("로그인 비밀번호 확인 : ");
+					loginPwConfirm = sc.nextLine();
+
+					if (loginPw.equals(loginPwConfirm) == false) {
+						System.out.println("비밀번호를 다시 입력해주세요");
+						continue;
+					}
+
+					break;
+				}
+
+				System.out.print("이름 : ");
+				String name = sc.nextLine();
+
+				Member member = new Member(id, regDate, loginId, loginPw, name);
+
+				members.add(member);
+
+				System.out.printf("%s님 환영합니다. %d번 회원가입되었습니다.\n", name, id);
 
 			} else {
 				System.out.printf("%s는 존재하지 않는 명령어 입니다.\n", command);
