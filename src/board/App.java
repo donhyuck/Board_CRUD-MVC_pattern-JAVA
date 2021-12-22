@@ -155,10 +155,21 @@ public class App {
 			} else if (command.equals("member join")) {
 
 				int id = members.size() + 1;
-				String regDate = Util.getCurrentDate();
+				String loginId = null;
 
-				System.out.print("로그인 아이디 : ");
-				String loginId = sc.nextLine();
+				System.out.println("== 회원가입 ==");
+
+				while (true) {
+					System.out.print("로그인 아이디 : ");
+					loginId = sc.nextLine();
+
+					if (isJoinableLoginId(loginId) == false) {
+						System.out.printf("%s는 이미 사용중인 아이디입니다.\n", loginId);
+						continue;
+					}
+
+					break;
+				}
 
 				String loginPw = null;
 				String loginPwConfirm = null;
@@ -181,6 +192,8 @@ public class App {
 				System.out.print("이름 : ");
 				String name = sc.nextLine();
 
+				String regDate = Util.getCurrentDate();
+
 				Member member = new Member(id, regDate, loginId, loginPw, name);
 
 				members.add(member);
@@ -191,6 +204,30 @@ public class App {
 				System.out.printf("%s는 존재하지 않는 명령어 입니다.\n", command);
 			}
 		}
+	}
+
+	private boolean isJoinableLoginId(String loginId) {
+
+		int index = getMemberIndexByLoginId(loginId);
+
+		if (index == -1) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private int getMemberIndexByLoginId(String loginId) {
+
+		int i = 0;
+		for (Member member : members) {
+			if (member.loginId.equals(loginId)) {
+				return i;
+			}
+			i++;
+		}
+
+		return -1;
 	}
 
 	private int getArticleIndexById(int id) {
