@@ -7,14 +7,39 @@ import java.util.Scanner;
 import board.dto.Article;
 import board.util.Util;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 
 	private Scanner sc;
 	private List<Article> articles;
+	private String command;
+	private String actionMethodName;
 
 	public ArticleController(Scanner sc, List<Article> articles) {
 		this.sc = sc;
 		this.articles = articles;
+	}
+
+	public void doAction(String command, String actionMethodName) {
+		this.command = command;
+		this.actionMethodName = actionMethodName;
+
+		switch (actionMethodName) {
+		case "list":
+			showList();
+			break;
+		case "write":
+			doWrite();
+			break;
+		case "modify":
+			doModify();
+			break;
+		case "delete":
+			doDelete();
+			break;
+		case "detail":
+			showDetail();
+			break;
+		}
 	}
 
 	public void doWrite() {
@@ -37,7 +62,7 @@ public class ArticleController {
 
 	}
 
-	public void showList(String command) {
+	public void showList() {
 
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다.");
@@ -73,7 +98,7 @@ public class ArticleController {
 
 	}
 
-	public void showDetail(String command) {
+	public void showDetail() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
@@ -95,7 +120,7 @@ public class ArticleController {
 
 	}
 
-	public void doModify(String command) {
+	public void doModify() {
 
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
@@ -119,7 +144,7 @@ public class ArticleController {
 
 	}
 
-	public void doDelete(String command) {
+	public void doDelete() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
