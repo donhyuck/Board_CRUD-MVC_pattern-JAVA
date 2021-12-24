@@ -12,21 +12,13 @@ import board.dto.Member;
 
 public class App {
 
-	private static List<Article> articles;
-	private static List<Member> members;
-
-	App() {
-		articles = new ArrayList<>();
-		members = new ArrayList<>();
-	}
-
 	public void start() {
 
 		System.out.println("== 프로그램 시작 ==");
 		Scanner sc = new Scanner(System.in);
 
-		ArticleController articleController = new ArticleController(sc, articles);
-		MemberController memberController = new MemberController(sc, members);
+		ArticleController articleController = new ArticleController(sc);
+		MemberController memberController = new MemberController(sc);
 
 		articleController.makeTestDate();
 

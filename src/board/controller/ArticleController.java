@@ -14,9 +14,10 @@ public class ArticleController extends Controller {
 	private String command;
 	private String actionMethodName;
 
-	public ArticleController(Scanner sc, List<Article> articles) {
+	public ArticleController(Scanner sc) {
 		this.sc = sc;
-		this.articles = articles;
+
+		articles = new ArrayList<>();
 	}
 
 	public void doAction(String command, String actionMethodName) {
@@ -42,7 +43,7 @@ public class ArticleController extends Controller {
 		}
 	}
 
-	public void doWrite() {
+	private void doWrite() {
 
 		int id = articles.size() + 1;
 
@@ -62,7 +63,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void showList() {
+	private void showList() {
 
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다.");
@@ -95,10 +96,9 @@ public class ArticleController extends Controller {
 			System.out.printf("%3d  | %4s | %4s  | %4d\n", currentArticle.id, currentArticle.regDate,
 					currentArticle.title, currentArticle.hit);
 		}
-
 	}
 
-	public void showDetail() {
+	private void showDetail() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
@@ -120,7 +120,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void doModify() {
+	private void doModify() {
 
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
@@ -144,7 +144,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void doDelete() {
+	private void doDelete() {
 		String[] commandBits = command.split(" ");
 		int id = Integer.parseInt(commandBits[2]);
 
