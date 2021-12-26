@@ -14,7 +14,6 @@ public class MemberController extends Controller {
 	private List<Member> members;
 	private String command;
 	private String actionMethodName;
-	private Member loginedMember;
 
 	public MemberController(Scanner sc) {
 		this.sc = sc;
@@ -47,6 +46,11 @@ public class MemberController extends Controller {
 
 	private void doLogin() {
 
+		if (isLogined() == true) {
+			System.out.println("이미 로그인 중입니다.");
+			return;
+		}
+
 		System.out.print("로그인 아이디 : ");
 		String loginId = sc.nextLine();
 		System.out.print("로그인 비밀번호 : ");
@@ -59,7 +63,6 @@ public class MemberController extends Controller {
 			return;
 		}
 
-		// 아이디에 해당하는 회원존재
 		if (member.loginPw.equals(loginPw) == false) {
 			System.out.println("틀린 비밀번호입니다. 확인해주세요.");
 			return;
@@ -175,11 +178,7 @@ public class MemberController extends Controller {
 			i++;
 		}
 
-		return -1; // 일치하는 회원이 없을 경우
-	}
-
-	private boolean isLogined() {
-		return loginedMember != null; // 누군가 로그인 되어있다면 참 값(로그인 중)
+		return -1;
 	}
 
 	public void makeTestDate() {
