@@ -21,6 +21,7 @@ public class App {
 		MemberController memberController = new MemberController(sc);
 
 		articleController.makeTestDate();
+		memberController.makeTestDate();
 
 		while (true) {
 			System.out.print("명령어 : ");
