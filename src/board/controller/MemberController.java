@@ -33,6 +33,9 @@ public class MemberController extends Controller {
 		case "login":
 			doLogin();
 			break;
+		case "logout":
+			doLogout();
+			break;
 		case "whoami":
 			showWhoAmI();
 			break;
@@ -66,6 +69,16 @@ public class MemberController extends Controller {
 		System.out.println("== 로그인 완료 ==");
 		System.out.printf("%s님 환영합니다.\n", loginedMember.name);
 
+	}
+
+	private void doLogout() {
+		if (isLogined() == false) {
+			System.out.println("로그인 상태가 아닙니다.");
+			return;
+		}
+
+		System.out.printf("%s님 로그아웃 되었습니다.\n", loginedMember.name);
+		loginedMember = null;
 	}
 
 	private void showWhoAmI() {
@@ -163,6 +176,10 @@ public class MemberController extends Controller {
 		}
 
 		return -1; // 일치하는 회원이 없을 경우
+	}
+
+	private boolean isLogined() {
+		return loginedMember != null; // 누군가 로그인 되어있다면 참 값(로그인 중)
 	}
 
 	public void makeTestDate() {
