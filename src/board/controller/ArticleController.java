@@ -68,9 +68,9 @@ public class ArticleController extends Controller {
 		System.out.print("내용 : ");
 		String body = sc.nextLine();
 
-		String currentDate = Util.getCurrentDate();
+		String regDate = Util.getCurrentDate();
 
-		Article article = new Article(id, currentDate, title, body);
+		Article article = new Article(id, regDate, loginedMember.id, title, body);
 
 		articles.add(article);
 
@@ -104,12 +104,12 @@ public class ArticleController extends Controller {
 		}
 
 		System.out.println("== 게시물 목록 ==");
-		System.out.println(" 번호 |     날짜    |  제목  |  조회수");
+		System.out.println(" 번호 |     날짜     | 작성자 |  제목  |  조회수");
 
 		for (int i = forListArticles.size() - 1; i >= 0; i--) {
 			Article currentArticle = forListArticles.get(i);
-			System.out.printf("%3d  | %4s | %4s  | %4d\n", currentArticle.id, currentArticle.regDate,
-					currentArticle.title, currentArticle.hit);
+			System.out.printf("%3d  | %4s | %4d | %4s  | %4d\n", currentArticle.id, currentArticle.regDate,
+					currentArticle.memberId, currentArticle.title, currentArticle.hit);
 		}
 	}
 
@@ -129,6 +129,7 @@ public class ArticleController extends Controller {
 
 		System.out.printf("번 호 : %d\n", targetArticle.id);
 		System.out.printf("작성일 : %s\n", targetArticle.regDate);
+		System.out.printf("작성자 : %d\n", targetArticle.memberId);
 		System.out.printf("제 목 : %s\n", targetArticle.title);
 		System.out.printf("내 용 : %s\n", targetArticle.body);
 		System.out.printf("조회수 : %d\n", targetArticle.hit);
@@ -202,9 +203,9 @@ public class ArticleController extends Controller {
 	public void makeTestDate() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
 
-		articles.add(new Article(1, Util.getCurrentDate(), "제목1", "내용1", 11));
-		articles.add(new Article(2, Util.getCurrentDate(), "제목2", "내용2", 22));
-		articles.add(new Article(3, Util.getCurrentDate(), "제목3", "내용3", 33));
+		articles.add(new Article(1, Util.getCurrentDate(), 1, "제목1", "내용1", 11));
+		articles.add(new Article(2, Util.getCurrentDate(), 2, "제목2", "내용2", 22));
+		articles.add(new Article(3, Util.getCurrentDate(), 3, "제목3", "내용3", 33));
 	}
 
 }
