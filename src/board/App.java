@@ -1,14 +1,11 @@
 package board;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import board.controller.ArticleController;
 import board.controller.Controller;
+import board.controller.ExportController;
 import board.controller.MemberController;
-import board.dto.Article;
-import board.dto.Member;
 
 public class App {
 
@@ -19,9 +16,11 @@ public class App {
 
 		ArticleController articleController = new ArticleController(sc);
 		MemberController memberController = new MemberController(sc);
+		ExportController exportController = new ExportController(sc);
 
 		articleController.makeTestDate();
 		memberController.makeTestDate();
+		exportController.makeTestDate();
 
 		while (true) {
 			System.out.print("명령어 : ");
@@ -54,6 +53,9 @@ public class App {
 
 			} else if (controllerName.equals("member")) {
 				controller = memberController;
+
+			} else if (controllerName.equals("export")) {
+				controller = exportController;
 
 			} else {
 				System.out.println("존재하지 않는 명령어입니다.");

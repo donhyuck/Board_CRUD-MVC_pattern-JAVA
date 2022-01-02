@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import board.container.Container;
 import board.dto.Article;
-import board.dto.Member;
 import board.service.ArticleService;
+import board.service.MemberService;
 import board.util.Util;
 
 public class ArticleController extends Controller {
@@ -15,10 +15,12 @@ public class ArticleController extends Controller {
 	private String command;
 	private String actionMethodName;
 	private ArticleService articleService;
+	private MemberService memberService;
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
 		articleService = Container.articleService;
+		memberService = Container.memberService;
 	}
 
 	public void doAction(String command, String actionMethodName) {
@@ -84,16 +86,8 @@ public class ArticleController extends Controller {
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article currentArticle = forPrintArticles.get(i);
 
-			String writerName = null;
+			String writerName = memberService.getMemberNameById(currentArticle.memberId);
 
-			List<Member> members = Container.memberDao.members;
-
-			for (Member member : members) {
-				if (currentArticle.memberId == member.id) {
-					writerName = member.name;
-					break;
-				}
-			}
 			System.out.printf("%3d  | %4s | %4s | %4s  | %4d\n", currentArticle.id, currentArticle.regDate, writerName,
 					currentArticle.title, currentArticle.hit);
 		}
